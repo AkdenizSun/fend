@@ -114,10 +114,45 @@ document.addEventListener('DOMContentLoaded', function() {
 // Set sections as active
 
 
-// for (const section of sections) {
-//   const a = document.createElement("a");
-//   a.innerText = section.dataset.linkText;
-//   a.href = "#"+section.id;
-//   nav.appendChild(a);
-// }
+function getContent(){
+    const pageContent = {
+    sections:
+    [{
+        menuText:"Section 1", sectionId:"section1", sectionName:"Section 1", sectionText:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>"+
+        "<p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>"
+    },
+    {
+        menuText:"Section 2", sectionId:"section2", sectionName:"Section 2", sectionText:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>"+
+        "<p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>"
+    },
+    {
+        menuText:"Section 3", sectionId:"section3", sectionName:"Section 3", sectionText:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>"+
+        "<p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>"
+    }
+        
+    ]
+    }
+ return pageContent;
+};
 
+function fillPageContent(){
+   let content = getContent();
+   const main = document.getElementsByTagName('main')[0];
+   const dFrag = document.createDocumentFragment();
+   for(const sectionData of content.sections){
+    const section = document.createElement('section');
+    section.setAttribute('id', sectionData.sectionId );
+    section.setAttribute('data-nav',sectionData.menuText);
+    const div =document.createElement('div');
+    div.classList.add('landing__container');
+    const h2 = document.createElement('h2');
+    h2.innerHTML = sectionData.sectionName;
+    div.appendChild(h2);
+    div.innerHTML += sectionData.sectionText;
+    section.appendChild(div);
+    dFrag.appendChild(section);
+   }
+   main.appendChild(dFrag);
+};
+
+fillPageContent();
