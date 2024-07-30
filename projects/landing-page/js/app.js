@@ -28,8 +28,12 @@ console.log(sections);
 
 const navbarList = document.querySelector("#navbar__list");
 for (const section of sections) {
+    const elementLink = document.createElement("a")
     const para = document.createElement("li");
-    para.innerHTML = section.getAttribute('data-nav');
+    para.appendChild(elementLink);
+    elementLink.setAttribute('href', '#' + section.getAttribute('id'));
+
+    elementLink.innerHTML = section.getAttribute('data-nav');
     para.classList.add('menu__link');
     navbarList.appendChild(para);
 
@@ -60,7 +64,15 @@ document.addEventListener('scroll', () =>{
  * Start Helper Functions
  * 
 */
-
+function smoothScroll(target) {
+    const element = document.getElementById(target);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  }
 
 
 /**
@@ -68,6 +80,17 @@ document.addEventListener('scroll', () =>{
  * Begin Main Functions
  * 
 */
+document.addEventListener('DOMContentLoaded', function() {
+    const anchors = document.querySelectorAll('a[href^="#"]');
+    anchors.forEach(function(anchor) {
+      anchor.addEventListener('click', function(event) {
+        event.preventDefault();
+        const target = anchor.getAttribute('href').substring(1);
+        smoothScroll(target);
+      });
+    });
+  });
+
 
 // build the nav
 
