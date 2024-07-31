@@ -26,20 +26,11 @@ const sections = document.getElementsByTagName("section");
 
 /**
  * End Global Variables
- * Start Helper Functions
- * 
-*/
-
-/**
- * End Helper Functions
  * Begin Main Functions
  * 
 */
 
-
-
 // build the nav
-
 function createNav(){
     const navbarList = document.querySelector("#navbar__list");
     for (const section of sections) {
@@ -54,9 +45,7 @@ function createNav(){
     }
 }
 
-
 // Add class 'active' to section when near top of viewport
-
 function AddActiveClass(sections){
     for(const section of sections){
           let distanceFromTop = section.getBoundingClientRect().top;
@@ -69,23 +58,7 @@ function AddActiveClass(sections){
       }
   }
   
-  document.addEventListener('scroll', () =>{
-      AddActiveClass(sections);
-  });
-  
 // Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
 function smoothScroll(target) {
     const element = document.getElementById(target);
     if (element) {
@@ -96,6 +69,7 @@ function smoothScroll(target) {
     }
   }
 
+// Scroll to section on link click
 function enableSmoothScroll(){
     const anchors = document.querySelectorAll('a[href^="#"]');
     anchors.forEach(function(anchor) {
@@ -107,11 +81,7 @@ function enableSmoothScroll(){
     });
 }
 
-
-
-// Set sections as active
-
-
+//This will request content from server in future. Now it returns just some static data.
 function getContent(){
     const pageContent = {
     sections:
@@ -133,6 +103,7 @@ function getContent(){
  return pageContent;
 };
 
+//Fill sections of page with content.
 function fillPageContent(){
    let content = getContent();
    const main = document.getElementsByTagName('main')[0];
@@ -153,12 +124,14 @@ function fillPageContent(){
    main.appendChild(dFrag);
 };
 
-
-
-function preparePage(){
+//Initialize page, menu and set event listeners.
+function preparePage(){  
     fillPageContent();
     createNav();
     enableSmoothScroll();
+    document.addEventListener('scroll', () =>{
+        AddActiveClass(sections);
+    });
 };
 
 document.addEventListener('DOMContentLoaded', preparePage);
