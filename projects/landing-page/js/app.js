@@ -23,81 +23,56 @@
  * 
 */
 const sections = document.getElementsByTagName("section");
-let numb = sections.length;
-console.log(sections);
-
-const navbarList = document.querySelector("#navbar__list");
-for (const section of sections) {
-    const elementLink = document.createElement("a")
-    const para = document.createElement("li");
-    para.appendChild(elementLink);
-    elementLink.setAttribute('href', '#' + section.getAttribute('id'));
-
-    elementLink.innerHTML = section.getAttribute('data-nav');
-    para.classList.add('menu__link');
-    navbarList.appendChild(para);
-
-    
-  }
-
-function AddActiveClass(sections){
-  for(const section of sections){
-        let distanceFromTop = section.getBoundingClientRect().top;
-        if(distanceFromTop >= 0 && distanceFromTop <= window.innerHeight){
-            section.classList.add("your-active-class");
-        } else {
-            section.classList.remove("your-active-class")
-        }
-
-    }
-}
-
-document.addEventListener('scroll', () =>{
-    AddActiveClass(sections);
-});
-
-
-
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-function smoothScroll(target) {
-    const element = document.getElementById(target);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  }
-
 
 /**
  * End Helper Functions
  * Begin Main Functions
  * 
 */
-document.addEventListener('DOMContentLoaded', function() {
-    const anchors = document.querySelectorAll('a[href^="#"]');
-    anchors.forEach(function(anchor) {
-      anchor.addEventListener('click', function(event) {
-        event.preventDefault();
-        const target = anchor.getAttribute('href').substring(1);
-        smoothScroll(target);
-      });
-    });
-  });
+
 
 
 // build the nav
 
+function createNav(){
+    const navbarList = document.querySelector("#navbar__list");
+    for (const section of sections) {
+        const elementLink = document.createElement("a")
+        const para = document.createElement("li");
+        para.appendChild(elementLink);
+        elementLink.setAttribute('href', '#' + section.getAttribute('id'));
+
+        elementLink.innerHTML = section.getAttribute('data-nav');
+        para.classList.add('menu__link');
+        navbarList.appendChild(para);
+    }
+}
+
 
 // Add class 'active' to section when near top of viewport
 
-
+function AddActiveClass(sections){
+    for(const section of sections){
+          let distanceFromTop = section.getBoundingClientRect().top;
+          if(distanceFromTop >= 0 && distanceFromTop <= window.innerHeight){
+              section.classList.add("your-active-class");
+          } else {
+              section.classList.remove("your-active-class")
+          }
+  
+      }
+  }
+  
+  document.addEventListener('scroll', () =>{
+      AddActiveClass(sections);
+  });
+  
 // Scroll to anchor ID using scrollTO event
 
 
@@ -110,6 +85,29 @@ document.addEventListener('DOMContentLoaded', function() {
 // Build menu 
 
 // Scroll to section on link click
+
+function smoothScroll(target) {
+    const element = document.getElementById(target);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+function enableSmoothScroll(){
+    const anchors = document.querySelectorAll('a[href^="#"]');
+    anchors.forEach(function(anchor) {
+      anchor.addEventListener('click', function(event) {
+        event.preventDefault();
+        const target = anchor.getAttribute('href').substring(1);
+        smoothScroll(target);
+      });
+    });
+}
+
+
 
 // Set sections as active
 
@@ -155,4 +153,14 @@ function fillPageContent(){
    main.appendChild(dFrag);
 };
 
-fillPageContent();
+
+
+function preparePage(){
+    fillPageContent();
+    createNav();
+    enableSmoothScroll();
+};
+
+document.addEventListener('DOMContentLoaded', preparePage);
+
+
