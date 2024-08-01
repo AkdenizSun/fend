@@ -35,24 +35,31 @@ function createNav(){
     const navbarList = document.querySelector("#navbar__list");
     for (const section of sections) {
         const elementLink = document.createElement("a")
-        const para = document.createElement("li");
-        para.appendChild(elementLink);
+        const listItem = document.createElement("li");
+        listItem.setAttribute('id', 'nav_' + section.getAttribute('id'));
+        listItem.appendChild(elementLink);
         elementLink.setAttribute('href', '#' + section.getAttribute('id'));
 
         elementLink.innerHTML = section.getAttribute('data-nav');
-        para.classList.add('menu__link');
-        navbarList.appendChild(para);
+        listItem.classList.add('menu__link');
+        navbarList.appendChild(listItem);
     }
 }
 
 // Add class 'active' to section when near top of viewport
 function AddActiveClass(sections){
+
     for(const section of sections){
-          let distanceFromTop = section.getBoundingClientRect().top;
-          if(distanceFromTop >= 0 && distanceFromTop <= window.innerHeight){
+          let li = document.getElementById('nav_' + section.getAttribute('id'));
+          let top = section.getBoundingClientRect().top;
+          let bottom = section.getBoundingClientRect().bottom;
+          let windowCenter = window.innerHeight/2;
+          if(top <= windowCenter && windowCenter <= bottom){
               section.classList.add("your-active-class");
+              li.classList.add("your-active-class");
           } else {
-              section.classList.remove("your-active-class")
+              section.classList.remove("your-active-class");
+              li.classList.remove("your-active-class");
           }
   
       }
@@ -96,10 +103,15 @@ function getContent(){
     {
         menuText:"Section 3", sectionId:"section3", sectionName:"Section 3", sectionText:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>"+
         "<p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>"
+    },
+    {
+        menuText:"Section 4", sectionId:"section4", sectionName:"Section 4", sectionText:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>"+
+        "<p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>"
     }
         
     ]
     }
+
  return pageContent;
 };
 
