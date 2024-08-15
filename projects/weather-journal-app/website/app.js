@@ -14,12 +14,16 @@ async function zipcodeToLatLon(zipcode) {
     const request = await fetch(url);
     try {
         const allData = await request.json();
+        if ('cod' in allData && allData.cod != 200) {
+            throw new Error(zipcode);
+        }
         return allData;
 
     } catch (error) {
         console.log("error", error);
+        alert('Error while getting Australian zip code: ' + zipcode);
+        throw error;
     }
-
 }
 document.getElementById('generate').addEventListener('click', performAction);
 
