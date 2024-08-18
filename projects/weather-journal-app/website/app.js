@@ -6,7 +6,7 @@ const apiKey = '&appid=4e9a55ab66c338b482ac68e6bde5f838&units=imperial';
 const tempAPI = 'https://api.openweathermap.org/data/2.5/weather?';
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear();
 
 async function zipcodeToLatLon(zipcode) {
 
